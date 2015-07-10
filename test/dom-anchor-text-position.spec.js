@@ -139,4 +139,36 @@ describe('TextPositionAnchor', () => {
       assert(anchor.end === selector.end);
     });
   });
+
+  describe('toRange', () => {
+    it('returns a range selecting a whole text node', () => {
+      let expected = 'commodo vitae';
+      let start = global.document.body.textContent.indexOf(expected);
+      let end = start + expected.length;
+      let anchor = new TextPositionAnchor(start, end);
+      let range = anchor.toRange();
+      let text = range.toString();
+      assert.equal(text, expected);
+    });
+
+    it('returns a range selecting part of a text node', () => {
+      let expected = 'do vit';
+      let start = global.document.body.textContent.indexOf(expected);
+      let end = start + expected.length;
+      let anchor = new TextPositionAnchor(start, end);
+      let range = anchor.toRange();
+      let text = range.toString();
+      assert.equal(text, expected);
+    });
+
+    it('returns a range selecting part of multiple text nodes', () => {
+      let expected = 'do vitae, ornare';
+      let start = global.document.body.textContent.indexOf(expected);
+      let end = start + expected.length;
+      let anchor = new TextPositionAnchor(start, end);
+      let range = anchor.toRange();
+      let text = range.toString();
+      assert.equal(text, expected);
+    });
+  });
 });
