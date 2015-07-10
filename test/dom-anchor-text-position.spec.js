@@ -13,8 +13,20 @@ describe('TextPositionAnchor', () => {
     fixture.cleanup();
   });
 
-  it('is a function', () => {
-    assert.isFunction(TextPositionAnchor);
+  describe('constructor', () => {
+    it('is a function', () => {
+      assert.isFunction(TextPositionAnchor);
+    });
+
+    it('requires a start argument', () => {
+      let construct = () => new TextPositionAnchor();
+      assert.throws(construct, 'required parameter');
+    });
+
+    it('requires an end argument', () => {
+      let construct = () => new TextPositionAnchor(100);
+      assert.throws(construct, 'required parameter');
+    });
   });
 
   describe('fromRange', () => {
