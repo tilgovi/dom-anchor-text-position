@@ -9,14 +9,6 @@ function getFirstTextNode(node) {
 }
 
 
-function getLastTextNode(node) {
-  if (node.nodeType === Node.TEXT_NODE) return node;
-  let walker = global.document.createTreeWalker(
-    node, NodeFilter.SHOW_TEXT, null, false);
-  return walker.lastChild();
-}
-
-
 export default class TextPositionAnchor {
   constructor(start, end) {
     if (start === undefined) {
@@ -52,8 +44,8 @@ export default class TextPositionAnchor {
       if (endOffset > 0) {
         endNode = endNode.childNodes[endOffset];
       }
-      endNode = getLastTextNode(endNode);
-      endOffset = endNode.textContent.length;
+      endNode = getFirstTextNode(endNode);
+      endOffset = 0;
     }
 
     let iter = global.document.createNodeIterator(
