@@ -122,4 +122,21 @@ describe('TextPositionAnchor', () => {
       assert.equal(text, expected);
     });
   });
+
+  describe('fromSelector', () => {
+    it('requires a selector argument', () => {
+      let construct = () => TextPositionAnchor.fromSelector();
+      assert.throws(construct, 'required parameter');
+    });
+
+    it('returns a TextPosition from the value of the selector', () => {
+      let selector = {
+        start: 100,
+        end: 200,
+      };
+      let anchor = TextPositionAnchor.fromSelector(selector);
+      assert(anchor.start === selector.start);
+      assert(anchor.end === selector.end);
+    });
+  });
 });
