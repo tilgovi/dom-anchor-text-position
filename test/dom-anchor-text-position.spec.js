@@ -65,5 +65,61 @@ describe('TextPositionAnchor', () => {
       ].join('');
       assert.equal(text, expected);
     });
+
+    it('can describe a range between elements', () => {
+      let range = global.document.createRange();
+      let emNode = global.document.getElementsByTagName('em')[0];
+      let codeNode = global.document.getElementsByTagName('code')[0];
+      range.setStartBefore(emNode);
+      range.setEndAfter(codeNode);
+      let anchor = TextPositionAnchor.fromRange(range);
+      let {start, end} = anchor;
+      let text = global.document.body.textContent.substr(start, end - start);
+      let expected = [
+        'Aenean ultricies mi vitae est.',
+        ' Mauris placerat eleifend\n  leo. Quisque sit amet est',
+        ' et sapien ullamcorper pharetra. Vestibulum erat\n',
+        '  wisi, condimentum sed, commodo vitae',
+      ].join('');
+      assert.equal(text, expected);
+    });
+
+    it('can describe a range between an element and a text node', () => {
+      let range = global.document.createRange();
+      let emNode = global.document.getElementsByTagName('em')[0];
+      let codeNode = global.document.getElementsByTagName('code')[0];
+      let codeTextNode = codeNode.childNodes[0];
+      range.setStartBefore(emNode);
+      range.setEnd(codeTextNode, 7);
+      let anchor = TextPositionAnchor.fromRange(range);
+      let {start, end} = anchor;
+      let text = global.document.body.textContent.substr(start, end - start);
+      let expected = [
+        'Aenean ultricies mi vitae est.',
+        ' Mauris placerat eleifend\n  leo. Quisque sit amet est',
+        ' et sapien ullamcorper pharetra. Vestibulum erat\n',
+        '  wisi, condimentum sed, commodo',
+      ].join('');
+      assert.equal(text, expected);
+    });
+
+    it('can describe a range between a text node and an element', () => {
+      let range = global.document.createRange();
+      let emNode = global.document.getElementsByTagName('em')[0];
+      let emTextNode = emNode.childNodes[0];
+      let codeNode = global.document.getElementsByTagName('code')[0];
+      range.setStart(emTextNode, 7);
+      range.setEndAfter(codeNode, 7);
+      let anchor = TextPositionAnchor.fromRange(range);
+      let {start, end} = anchor;
+      let text = global.document.body.textContent.substr(start, end - start);
+      let expected = [
+        'ultricies mi vitae est.',
+        ' Mauris placerat eleifend\n  leo. Quisque sit amet est',
+        ' et sapien ullamcorper pharetra. Vestibulum erat\n',
+        '  wisi, condimentum sed, commodo vitae',
+      ].join('');
+      assert.equal(text, expected);
+    });
   });
 });
