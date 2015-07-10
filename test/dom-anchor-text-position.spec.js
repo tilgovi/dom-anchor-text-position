@@ -78,6 +78,16 @@ describe('TextPositionAnchor', () => {
       assert.equal(text, expected);
     });
 
+    it('can describe a whole, single element', () => {
+      let range = global.document.createRange();
+      let node = global.document.getElementsByTagName('code')[0];
+      range.selectNodeContents(node);
+      let anchor = TextPositionAnchor.fromRange(range);
+      let {start, end} = anchor;
+      let text = global.document.body.textContent.substr(start, end - start);
+      assert.equal(text, 'commodo vitae');
+    });
+
     it('can describe a range between elements', () => {
       let range = global.document.createRange();
       let emNode = global.document.getElementsByTagName('em')[0];

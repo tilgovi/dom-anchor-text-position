@@ -30,9 +30,7 @@ export default class TextPositionAnchor {
     let startOffset = range.startOffset;
 
     if (startNode.nodeType !== Node.TEXT_NODE) {
-      if (startOffset > 0) {
-        startNode = startNode.childNodes[startOffset];
-      }
+      startNode = startNode.childNodes[startOffset];
       startNode = getFirstTextNode(startNode);
       startOffset = 0;
     }
@@ -41,11 +39,15 @@ export default class TextPositionAnchor {
     let endOffset = range.endOffset;
 
     if (endNode.nodeType !== Node.TEXT_NODE) {
-      if (endOffset > 0) {
+      if (endOffset === endNode.childNodes.length) {
+        endNode = endNode.childNodes[endOffset - 1];
+        endNode = getFirstTextNode(endNode);
+        endOffset = endNode.textContent.length;
+      } else {
         endNode = endNode.childNodes[endOffset];
+        endNode = getFirstTextNode(endNode);
+        endOffset = 0;
       }
-      endNode = getFirstTextNode(endNode);
-      endOffset = 0;
     }
 
     let iter = global.document.createNodeIterator(
