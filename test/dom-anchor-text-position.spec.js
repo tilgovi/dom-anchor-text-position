@@ -43,6 +43,7 @@ describe('TextPositionAnchor', () => {
       let anchor = TextPositionAnchor.fromRange(range);
       let {start, end} = anchor;
       let text = global.document.body.textContent.substr(start, end - start);
+      assert.instanceOf(anchor, TextPositionAnchor);
       assert.equal(text, 'commodo vitae');
     });
 
@@ -55,6 +56,7 @@ describe('TextPositionAnchor', () => {
       let anchor = TextPositionAnchor.fromRange(range);
       let {start, end} = anchor;
       let text = global.document.body.textContent.substr(start, end - start);
+      assert.instanceOf(anchor, TextPositionAnchor);
       assert.equal(text, 'do vita');
     });
 
@@ -75,6 +77,7 @@ describe('TextPositionAnchor', () => {
         ' et sapien ullamcorper pharetra. Vestibulum erat\n',
         '  wisi, condimentum sed, commodo',
       ].join('');
+      assert.instanceOf(anchor, TextPositionAnchor);
       assert.equal(text, expected);
     });
 
@@ -85,6 +88,7 @@ describe('TextPositionAnchor', () => {
       let anchor = TextPositionAnchor.fromRange(range);
       let {start, end} = anchor;
       let text = global.document.body.textContent.substr(start, end - start);
+      assert.instanceOf(anchor, TextPositionAnchor);
       assert.equal(text, 'commodo vitae');
     });
 
@@ -103,6 +107,7 @@ describe('TextPositionAnchor', () => {
         ' et sapien ullamcorper pharetra. Vestibulum erat\n',
         '  wisi, condimentum sed, commodo vitae',
       ].join('');
+      assert.instanceOf(anchor, TextPositionAnchor);
       assert.equal(text, expected);
     });
 
@@ -122,6 +127,7 @@ describe('TextPositionAnchor', () => {
         ' et sapien ullamcorper pharetra. Vestibulum erat\n',
         '  wisi, condimentum sed, commodo',
       ].join('');
+      assert.instanceOf(anchor, TextPositionAnchor);
       assert.equal(text, expected);
     });
 
@@ -141,6 +147,7 @@ describe('TextPositionAnchor', () => {
         ' et sapien ullamcorper pharetra. Vestibulum erat\n',
         '  wisi, condimentum sed, commodo vitae',
       ].join('');
+      assert.instanceOf(anchor, TextPositionAnchor);
       assert.equal(text, expected);
     });
 
@@ -155,6 +162,7 @@ describe('TextPositionAnchor', () => {
       let anchor = TextPositionAnchor.fromRange(range);
       let {start, end} = anchor;
       let text = global.document.body.textContent.substr(start, end - start);
+      assert.instanceOf(anchor, TextPositionAnchor);
       assert.equal(text, ', ornare');
     });
   });
@@ -165,12 +173,13 @@ describe('TextPositionAnchor', () => {
       assert.throws(construct, 'required parameter');
     });
 
-    it('returns a TextPosition from the value of the selector', () => {
+    it('returns a TextPositionAnchor from the value of the selector', () => {
       let selector = {
         start: 100,
         end: 200,
       };
       let anchor = TextPositionAnchor.fromSelector(selector);
+      assert.instanceOf(anchor, TextPositionAnchor);
       assert(anchor.start === selector.start);
       assert(anchor.end === selector.end);
     });
