@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- '0.10'
+sudo: false
+before_script:
+- npm install -g karma-cli
+- npm install karma-coveralls
+notifications:
+  email: false
+  irc:
+    channels:
+    - chat.freenode.net#annotator
+    on_success: change
+    on_failure: change
+cache:
+  directories:
+  - node_modules
