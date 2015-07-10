@@ -171,4 +171,14 @@ describe('TextPositionAnchor', () => {
       assert.equal(text, expected);
     });
   });
+
+  describe('toSelector', () => {
+    it('returns a selector for the stored positions', () => {
+      let anchor = new TextPositionAnchor(100, 200);
+      let selector = anchor.toSelector();
+      assert.equal(selector.type, 'TextPositionSelector');
+      assert.equal(selector.start, 100);
+      assert.equal(selector.end, 200);
+    });
+  });
 });
