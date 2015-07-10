@@ -30,9 +30,15 @@ export default class TextPositionAnchor {
     let startOffset = range.startOffset;
 
     if (startNode.nodeType !== Node.TEXT_NODE) {
-      startNode = startNode.childNodes[startOffset];
-      startNode = getFirstTextNode(startNode);
-      startOffset = 0;
+      if (startOffset === startNode.childNodes.length) {
+        startNode = startNode.childNodes[startOffset - 1];
+        startNode = getFirstTextNode(startNode);
+        startOffset = startNode.textContent.length;
+      } else {
+        startNode = startNode.childNodes[startOffset];
+        startNode = getFirstTextNode(startNode);
+        startOffset = 0;
+      }
     }
 
     let endNode = range.endContainer;

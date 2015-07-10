@@ -143,6 +143,20 @@ describe('TextPositionAnchor', () => {
       ].join('');
       assert.equal(text, expected);
     });
+
+    it('can describe a range that starts at the end of the container', () => {
+      let range = global.document.createRange();
+      let node = global.document.getElementsByTagName('code')[0];
+      range.setStart(node, 1);
+      let siblingList = Array.prototype.slice.call(node.parentNode.childNodes);
+      let startContainerIndex = siblingList.indexOf(node);
+      let nextSibling = siblingList[startContainerIndex + 1];
+      range.setEnd(nextSibling, 8);
+      let anchor = TextPositionAnchor.fromRange(range);
+      let {start, end} = anchor;
+      let text = global.document.body.textContent.substr(start, end - start);
+      assert.equal(text, ', ornare');
+    });
   });
 
   describe('fromSelector', () => {
