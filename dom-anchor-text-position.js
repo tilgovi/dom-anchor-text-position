@@ -54,10 +54,7 @@ export default class TextPositionAnchor {
     let start = seek(iter, startNode);
     let end = start + seek(iter, endNode);
 
-    start += startOffset;
-    end += endOffset;
-
-    return new TextPositionAnchor(start, end);
+    return new TextPositionAnchor(start + startOffset, end + endOffset);
   }
 
   static fromSelector(selector) {
