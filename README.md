@@ -35,27 +35,28 @@ Usage
 
 The module exposes a single constructor function, `TextPositionAnchor`.
 
-### `new TextPositionAnchor(start, end)`
+### `new TextPositionAnchor(root, start, end)`
 
 This constructor creates a new `TextPositionAnchor`. The arguments describe
-textual offsets within the document body. Both arguments are required.
+textual offsets within the root `Element`. All arguments are required.
 
-### `TextPositionAnchor.fromRange(range)`
+### `TextPositionAnchor.fromRange(root, range)`
 
 Provided with an existing `Range` instance this will return a
 `TextPositionAnchor` that stores the offsets of the beginning and end of the
-text selected by the range as measured from the beginning of the document
-body.
+text selected by the range as measured from the beginning of the `root`
+`Element`.
 
-### `TextPositionAnchor.fromSelector(selector)`
+### `TextPositionAnchor.fromSelector(root, selector)`
 
 Provided with an `Object` containing `start` and `end` keys this will return
-a `TextPositionAnchor` that corresponds to these offsets.
+a `TextPositionAnchor` that corresponds to these offsets within the `root`
+`Element`.
 
 ### `TextPositionAnchor.prototype.toRange()`
 
 This method returns a `Range` object that selects the text corresponding to
-the substring of the text content of the document body over the interval
+the substring of the text content of the anchor root over the interval
 [start, end).
 
 ### `TextPositionAnchor.prototype.toSelector()`

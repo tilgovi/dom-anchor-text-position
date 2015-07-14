@@ -3,25 +3,31 @@ import seek from 'dom-seek'
 
 function getFirstTextNode(node) {
   if (node.nodeType === Node.TEXT_NODE) return node;
-  let walker = global.document.createTreeWalker(
-    node, NodeFilter.SHOW_TEXT, null, false);
+  let walker = global.document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
   return walker.firstChild();
 }
 
 
 export default class TextPositionAnchor {
-  constructor(start, end) {
+  constructor(root, start, end) {
+    if (root === undefined) {
+      throw new Error('missing required parameter "root"');
+    }
     if (start === undefined) {
       throw new Error('missing required parameter "start"');
     }
     if (end === undefined) {
       throw new Error('missing required parameter "end"');
     }
+    this.root = root;
     this.start = start;
     this.end = end;
   }
 
-  static fromRange(range) {
+  static fromRange(root, range) {
+    if (root === undefined) {
+      throw new Error('missing required parameter "root"');
+    }
     if (range === undefined) {
       throw new Error('missing required parameter "range"');
     }
@@ -56,26 +62,22 @@ export default class TextPositionAnchor {
       }
     }
 
-    let iter = global.document.createNodeIterator(
-      global.document.body, NodeFilter.SHOW_TEXT, null, false);
+    let iter = global.document.createNodeIterator(root, NodeFilter.SHOW_TEXT);
 
     let start = seek(iter, startNode);
     let end = start + seek(iter, endNode);
 
-    return new TextPositionAnchor(start + startOffset, end + endOffset);
+    return new TextPositionAnchor(root, start + startOffset, end + endOffset);
   }
 
-  static fromSelector(selector) {
-    if (selector === undefined) {
-      throw new Error('missing required parameter "selector"');
-    }
-    return new TextPositionAnchor(selector.start, selector.end);
+  static fromSelector(root, selector = {}) {
+    return new TextPositionAnchor(root, selector.start, selector.end);
   }
 
   toRange() {
+    let root = this.root;
     let range = global.document.createRange();
-    let iter = global.document.createNodeIterator(
-      global.document.body, NodeFilter.SHOW_TEXT, null, false);
+    let iter = global.document.createNodeIterator(root, NodeFilter.SHOW_TEXT);
 
     let {start, end} = this;
     let count = seek(iter, start);
