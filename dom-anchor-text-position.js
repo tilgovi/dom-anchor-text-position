@@ -35,6 +35,7 @@ export default class TextPositionAnchor {
     let startNode = range.startContainer;
     let startOffset = range.startOffset;
 
+    // Drill down to a text node if the range starts at the container boundary.
     if (startNode.nodeType !== Node.TEXT_NODE) {
       if (startOffset === startNode.childNodes.length) {
         startNode = startNode.childNodes[startOffset - 1];
@@ -50,6 +51,7 @@ export default class TextPositionAnchor {
     let endNode = range.endContainer;
     let endOffset = range.endOffset;
 
+    // Drill down to a text node if the range ends at the container boundary.
     if (endNode.nodeType !== Node.TEXT_NODE) {
       if (endOffset === endNode.childNodes.length) {
         endNode = endNode.childNodes[endOffset - 1];
@@ -63,7 +65,6 @@ export default class TextPositionAnchor {
     }
 
     let iter = global.document.createNodeIterator(root, NodeFilter.SHOW_TEXT);
-
     let start = seek(iter, startNode);
     let end = start + seek(iter, endNode);
 
@@ -86,18 +87,20 @@ export default class TextPositionAnchor {
     if (iter.pointerBeforeReferenceNode) {
       range.setStart(iter.referenceNode, remainder);
     } else {
+      // If the iterator advanced it will be left with its pointer after the
+      // reference node. The next node that is needed to create the range.
       range.setStart(iter.nextNode(), remainder);
-      iter.previousNode();
+      iter.previousNode();  // Rewind so as not to change the next result.
     }
 
     let length = (end - start) + remainder;
-
     count = seek(iter, length);
     remainder = length - count;
 
     if (iter.pointerBeforeReferenceNode) {
       range.setEnd(iter.referenceNode, remainder);
     } else {
+      // Same as above, but no need to rewind.
       range.setEnd(iter.nextNode(), remainder);
     }
 
