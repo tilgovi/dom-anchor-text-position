@@ -30,7 +30,7 @@
     ]
   },
   "dependencies": {
-    "dom-seek": "^1.0.0"
+    "dom-seek": "^1.0.1"
   },
   "devDependencies": {
     "babel": "^5.4.3",
