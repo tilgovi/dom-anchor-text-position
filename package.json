@@ -23,6 +23,12 @@
   },
   "homepage": "https://github.com/tilgovi/dom-anchor-text-position",
   "main": "dist/dom-anchor-text-position.js",
+  "browser": "dom-anchor-text-position.js",
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "dependencies": {
     "dom-seek": "^1.0.0"
   },
