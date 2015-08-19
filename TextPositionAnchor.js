@@ -1,4 +1,4 @@
-import seek from 'dom-seek'
+import seek from 'dom-seek';
 
 
 function getFirstTextNode(node) {
