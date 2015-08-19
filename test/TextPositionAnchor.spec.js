@@ -55,7 +55,7 @@ describe('TextPositionAnchor', () => {
 
     it('can describe a whole, single text node', () => {
       let root = fixture.el;
-      let range = global.document.createRange();
+      let range = document.createRange();
       let codeNode = root.querySelector('code');
       let textNode = codeNode.childNodes[0];
       range.selectNodeContents(textNode);
@@ -68,7 +68,7 @@ describe('TextPositionAnchor', () => {
 
     it('can describe part of a single text node', () => {
       let root = fixture.el;
-      let range = global.document.createRange();
+      let range = document.createRange();
       let codeNode = root.querySelector('code');
       let textNode = codeNode.childNodes[0];
       range.setStart(textNode, 5);
@@ -82,7 +82,7 @@ describe('TextPositionAnchor', () => {
 
     it('can describe a range from one text node to another', () => {
       let root = fixture.el;
-      let range = global.document.createRange();
+      let range = document.createRange();
       let emNode = root.querySelector('em');
       let emTextNode = emNode.childNodes[0];
       let codeNode = root.querySelector('code');
@@ -104,7 +104,7 @@ describe('TextPositionAnchor', () => {
 
     it('can describe a whole, single element', () => {
       let root = fixture.el;
-      let range = global.document.createRange();
+      let range = document.createRange();
       let node = root.querySelector('code');
       range.selectNodeContents(node);
       let anchor = TextPositionAnchor.fromRange(root, range);
@@ -116,7 +116,7 @@ describe('TextPositionAnchor', () => {
 
     it('can describe a range between elements', () => {
       let root = fixture.el;
-      let range = global.document.createRange();
+      let range = document.createRange();
       let emNode = root.querySelector('em');
       let codeNode = root.querySelector('code');
       range.setStartBefore(emNode);
@@ -136,7 +136,7 @@ describe('TextPositionAnchor', () => {
 
     it('can describe a range between an element and a text node', () => {
       let root = fixture.el;
-      let range = global.document.createRange();
+      let range = document.createRange();
       let emNode = root.querySelector('em');
       let codeNode = root.querySelector('code');
       let codeTextNode = codeNode.childNodes[0];
@@ -157,7 +157,7 @@ describe('TextPositionAnchor', () => {
 
     it('can describe a range between a text node and an element', () => {
       let root = fixture.el;
-      let range = global.document.createRange();
+      let range = document.createRange();
       let emNode = root.querySelector('em');
       let emTextNode = emNode.childNodes[0];
       let codeNode = root.querySelector('code');
@@ -178,7 +178,7 @@ describe('TextPositionAnchor', () => {
 
     it('can describe a range that starts at the end of the container', () => {
       let root = fixture.el;
-      let range = global.document.createRange();
+      let range = document.createRange();
       let node = root.querySelector('code');
       range.setStart(node, 1);
       let siblingList = Array.prototype.slice.call(node.parentNode.childNodes);
