@@ -20,7 +20,7 @@ Installation
 
 There are a few different ways to include the library.
 
-With a CommonJS bundler to `require('dom-anchor-text-position')`:
+With a CommonJS bundler, to `require('dom-anchor-text-position')`:
 
     npm install dom-anchor-text-position
 
