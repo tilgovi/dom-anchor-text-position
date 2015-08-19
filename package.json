@@ -1,6 +1,6 @@
 {
   "name": "dom-anchor-text-position",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Convert between DOM Range instances and text positions.",
   "scripts": {
     "test": "karma start"
