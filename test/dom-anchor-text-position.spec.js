@@ -1,4 +1,4 @@
-import TextPositionAnchor from '../dom-anchor-text-position'
+import TextPositionAnchor from '../TextPositionAnchor'
 
 describe('TextPositionAnchor', () => {
   before(() => {
