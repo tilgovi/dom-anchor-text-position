@@ -1,10 +1,12 @@
 import seek from 'dom-seek';
 
+const SHOW_TEXT = NodeFilter.SHOW_TEXT;
+
 
 function getFirstTextNode(node) {
   if (node.nodeType === Node.TEXT_NODE) return node;
   let document = node.ownerDocument;
-  let walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+  let walker = document.createTreeWalker(node, SHOW_TEXT, null, false);
   return walker.firstChild();
 }
 
@@ -66,7 +68,7 @@ export default class TextPositionAnchor {
     }
 
     let document = root.ownerDocument;
-    let iter = document.createNodeIterator(root, NodeFilter.SHOW_TEXT);
+    let iter = document.createNodeIterator(root, SHOW_TEXT, null, false);
     let start = seek(iter, startNode);
     let end = start + seek(iter, endNode);
 
@@ -81,7 +83,7 @@ export default class TextPositionAnchor {
     let root = this.root;
     let document = root.ownerDocument;
     let range = document.createRange();
-    let iter = document.createNodeIterator(root, NodeFilter.SHOW_TEXT);
+    let iter = document.createNodeIterator(root, SHOW_TEXT, null, false);
 
     let {start, end} = this;
     let count = seek(iter, start);
