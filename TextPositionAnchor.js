@@ -1,3 +1,4 @@
+import createNodeIterator from 'node-iterator-shim';
 import seek from 'dom-seek';
 
 const SHOW_TEXT = NodeFilter.SHOW_TEXT;
@@ -67,8 +68,7 @@ export default class TextPositionAnchor {
       }
     }
 
-    let document = root.ownerDocument;
-    let iter = document.createNodeIterator(root, SHOW_TEXT, null, false);
+    let iter = createNodeIterator(root, SHOW_TEXT);
     let start = seek(iter, startNode);
     let end = start + seek(iter, endNode);
 
@@ -83,7 +83,7 @@ export default class TextPositionAnchor {
     let root = this.root;
     let document = root.ownerDocument;
     let range = document.createRange();
-    let iter = document.createNodeIterator(root, SHOW_TEXT, null, false);
+    let iter = createNodeIterator(root, SHOW_TEXT);
 
     let {start, end} = this;
     let count = seek(iter, start);

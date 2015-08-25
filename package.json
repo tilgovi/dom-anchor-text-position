@@ -30,7 +30,8 @@
     ]
   },
   "dependencies": {
-    "dom-seek": "^1.0.1"
+    "dom-seek": "^1.0.1",
+    "node-iterator-shim": "^2.0.1"
   },
   "devDependencies": {
     "babel": "^5.4.3",
