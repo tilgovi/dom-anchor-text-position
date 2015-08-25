@@ -25,6 +25,8 @@ With a CommonJS bundler, to `require('dom-anchor-text-position')`:
     npm install dom-anchor-text-position
 
 With a script tag, include one of the scripts from the `dist` directory.
+For this to work, you will also need to include the compatibility library
+[node-iterator-shim](https://github.com/tilgovi/node-iterator-shim).
 
 With AMD loaders, these scripts should also work.
 
