@@ -3,8 +3,8 @@ Text Position Anchor
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![NPM Package](https://img.shields.io/npm/v/dom-anchor-text-position.svg)](https://www.npmjs.com/package/dom-anchor-text-position)
-[![Build Status](https://travis-ci.org/hypothesis/dom-anchor-text-position.svg?branch=master)](https://travis-ci.org/hypothesis/dom-anchor-text-position)
-[![Coverage Status](https://coveralls.io/repos/hypothesis/dom-anchor-text-position/badge.svg?branch=master)](https://coveralls.io/r/hypothesis/dom-anchor-text-position?branch=master)
+[![Build Status](https://travis-ci.org/tilgovi/dom-anchor-text-position.svg?branch=master)](https://travis-ci.org/tilgovi/dom-anchor-text-position)
+[![Coverage Status](https://coveralls.io/repos/tilgovi/dom-anchor-text-position/badge.svg?branch=master)](https://coveralls.io/r/tilgovi/dom-anchor-text-position?branch=master)
 
 This library offers conversion between a DOM `Range` instance and a text
 position selector as defined by the Web Annotation Data Model.
