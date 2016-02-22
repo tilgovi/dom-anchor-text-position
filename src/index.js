@@ -1,11 +1,12 @@
-import createNodeIterator from 'node-iterator-shim';
+import createNodeIterator from 'dom-node-iterator';
 import seek from 'dom-seek';
 
-const SHOW_TEXT = NodeFilter.SHOW_TEXT;
+const SHOW_TEXT = 4;
+const TEXT_NODE = 3;
 
 
 function getFirstTextNode(node) {
-  if (node.nodeType === Node.TEXT_NODE) return node;
+  if (node.nodeType === TEXT_NODE) return node;
   let document = node.ownerDocument;
   let walker = document.createTreeWalker(node, SHOW_TEXT, null, false);
   return walker.firstChild();
@@ -40,7 +41,7 @@ export default class TextPositionAnchor {
     let startOffset = range.startOffset;
 
     // Drill down to a text node if the range starts at the container boundary.
-    if (startNode.nodeType !== Node.TEXT_NODE) {
+    if (startNode.nodeType !== TEXT_NODE) {
       if (startOffset === startNode.childNodes.length) {
         startNode = startNode.childNodes[startOffset - 1];
         startNode = getFirstTextNode(startNode);
@@ -56,7 +57,7 @@ export default class TextPositionAnchor {
     let endOffset = range.endOffset;
 
     // Drill down to a text node if the range ends at the container boundary.
-    if (endNode.nodeType !== Node.TEXT_NODE) {
+    if (endNode.nodeType !== TEXT_NODE) {
       if (endOffset === endNode.childNodes.length) {
         endNode = endNode.childNodes[endOffset - 1];
         endNode = getFirstTextNode(endNode);

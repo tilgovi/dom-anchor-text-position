@@ -1,35 +1,24 @@
-var fs = require('fs');
+var babelify = require('babelify')
+var istanbul = require('browserify-babel-istanbul')
 
 module.exports = function(config) {
   config.set({
     browsers: ['PhantomJS'],
-    frameworks: [
-      'fixture',
-      'browserify',
-      'chai',
-      'mocha',
-      'source-map-support'
-    ],
+    browserify: {debug: true, transform: [babelify]},
+    frameworks: ['browserify', 'chai', 'fixture', 'mocha'],
     files: [
-      'test/*.spec.js',
+      'test/*.js',
       'test/fixtures/*.html'
     ],
-    reporters: ['progress', 'coverage'].concat(
-      (process.env.COVERALLS_REPO_TOKEN ? ['coveralls'] : [])),
     preprocessors: {
-      'test/*.spec.js': ['browserify'],
+      'test/*.js': ['browserify'],
       'test/fixtures/*.html': ['html2js']
     },
-    browserify: {
-      debug: true,
-      transform: ['babelify', 'browserify-istanbul']
-    },
-    coverageReporter: {
-      reporters: [
-        {type: 'lcovonly'},
-        {type: 'text'}
-      ]
-    },
-    singleRun: true
-  });
-};
+    reporters: ['progress'],
+  })
+
+  if (process.env.npm_config_coverage) config.set({
+    browserify: {debug: true, transform: [istanbul, babelify]},
+    reporters: ['progress', 'coverage', 'coveralls']
+  })
+}

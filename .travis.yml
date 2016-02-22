@@ -1,10 +1,13 @@
 language: node_js
-node_js:
-- '0.10'
 sudo: false
-before_script:
-- npm install -g karma-cli
-- npm install karma-coveralls
+node_js:
+- stable
+cache:
+  directories:
+  - node_modules
+env:
+  global:
+  - npm_config_coverage=true
 notifications:
   email: false
   irc:
@@ -12,9 +15,3 @@ notifications:
     - chat.freenode.net#annotator
     on_success: change
     on_failure: change
-env:
-  global:
-    secure: FEvYbd0KCJX8RehO0pKV9bDJgo4vN73k3IbZ/ml840xP8Z5B4GsDIr2BjKcicrGbtycuL1d3VfEtDcCoQ2x3Y6xD8UVe/+s2CY+YCG4dGl+nZeU7FWn9+X0QQwRuUmKH0IKrZlGYKDLFrZPW4amMkPInpEivzFTUPr6tUY3pOyc=
-cache:
-  directories:
-  - node_modules
