@@ -6,8 +6,8 @@ cache:
   directories:
   - node_modules
 env:
-  global:
-    secure: FEvYbd0KCJX8RehO0pKV9bDJgo4vN73k3IbZ/ml840xP8Z5B4GsDIr2BjKcicrGbtycuL1d3VfEtDcCoQ2x3Y6xD8UVe/+s2CY+YCG4dGl+nZeU7FWn9+X0QQwRuUmKH0IKrZlGYKDLFrZPW4amMkPInpEivzFTUPr6tUY3pOyc=
+  matrix:
+    secure: BamO7vxCTFM6Doc1+S6Rc3oD+si7LjJtlsOp6YqHdCPW4yxBy7x8EHbcPHw8JVzKDnrGkH1KqwdDsWLVWJwix7FxiNRw6cs0VCQVCJrmqXdPOMBR6okNd3L6c1uRFd8rdM0cxfHd2FkJWQPIsL5ptCOxv6/MS4aWqn2u+lGVadA=
 notifications:
   email: false
   irc:
