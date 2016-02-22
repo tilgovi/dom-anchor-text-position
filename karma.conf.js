@@ -15,5 +15,6 @@ module.exports = function(config) {
       'test/fixtures/*.html': ['html2js']
     },
     reporters: ['progress', 'coverage', 'coveralls'],
+    coverageReporter: {type: 'lcov'}
   })
 }
