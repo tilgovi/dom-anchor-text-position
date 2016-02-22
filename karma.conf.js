@@ -17,13 +17,12 @@ module.exports = function(config) {
     reporters: ['progress']
   })
 
-  if (process.env.npm_config_coverage) config.set({
+  if (process.env.COVERAGE) config.set({
     browserify: {debug: true, transform: [istanbul, babelify]},
-    reporters: ['progress', 'coverage'],
-    coverageReporter: {type: 'lcov'}
+    reporters: ['progress', 'coverage', 'coveralls'],
   })
 
   if (process.env.TRAVIS) config.set({
-    reporters: ['progress', 'coverage', 'coveralls']
+    coverageReporter: {type: 'lcov'}
   })
 }

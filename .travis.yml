@@ -5,6 +5,9 @@ node_js:
 cache:
   directories:
   - node_modules
+env:
+  global:
+  - COVERAGE=true
 notifications:
   email: false
   irc:
