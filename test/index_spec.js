@@ -1,96 +1,88 @@
-import TextPositionAnchor from '../TextPositionAnchor';
+import TextPositionAnchor from '../src'
 
 describe('TextPositionAnchor', () => {
-  before(() => {
-    fixture.setBase('test/fixtures');
-  });
-
-  beforeEach(() => {
-    fixture.load('test.html');
-  });
-
-  afterEach(() => {
-    fixture.cleanup();
-  });
+  before(() => fixture.setBase('test/fixtures'))
+  beforeEach(() => fixture.load('test.html'))
+  afterEach(() => fixture.cleanup())
 
   describe('constructor', () => {
     it('is a function', () => {
-      assert.isFunction(TextPositionAnchor);
-    });
+      assert.isFunction(TextPositionAnchor)
+    })
 
     it('requires a root argument', () => {
-      let construct = () => new TextPositionAnchor();
-      assert.throws(construct, 'required parameter');
-    });
+      let construct = () => new TextPositionAnchor()
+      assert.throws(construct, 'required parameter')
+    })
 
     it('requires a start argument', () => {
-      let construct = () => new TextPositionAnchor(fixture.el);
-      assert.throws(construct, 'required parameter');
-    });
+      let construct = () => new TextPositionAnchor(fixture.el)
+      assert.throws(construct, 'required parameter')
+    })
 
     it('requires an end argument', () => {
-      let construct = () => new TextPositionAnchor(fixture.el, 100);
-      assert.throws(construct, 'required parameter');
-    });
+      let construct = () => new TextPositionAnchor(fixture.el, 100)
+      assert.throws(construct, 'required parameter')
+    })
 
     it('constructs a new instance with the given parameters', () => {
-      let anchor = new TextPositionAnchor(fixture.el, 100, 150);
-      assert.instanceOf(anchor, TextPositionAnchor);
-      assert.equal(anchor.root, fixture.el);
-      assert.equal(anchor.start, 100);
-      assert.equal(anchor.end, 150);
-    });
-  });
+      let anchor = new TextPositionAnchor(fixture.el, 100, 150)
+      assert.instanceOf(anchor, TextPositionAnchor)
+      assert.equal(anchor.root, fixture.el)
+      assert.equal(anchor.start, 100)
+      assert.equal(anchor.end, 150)
+    })
+  })
 
   describe('fromRange', () => {
     it('requires a root argument', () => {
-      let construct = () => TextPositionAnchor.fromRange();
-      assert.throws(construct, 'required parameter');
-    });
+      let construct = () => TextPositionAnchor.fromRange()
+      assert.throws(construct, 'required parameter')
+    })
 
     it('requires a range argument', () => {
-      let construct = () => TextPositionAnchor.fromRange(fixture.el);
-      assert.throws(construct, 'required parameter');
-    });
+      let construct = () => TextPositionAnchor.fromRange(fixture.el)
+      assert.throws(construct, 'required parameter')
+    })
 
     it('can describe a whole, single text node', () => {
-      let root = fixture.el;
-      let range = document.createRange();
-      let codeNode = root.querySelector('code');
-      let textNode = codeNode.childNodes[0];
-      range.selectNodeContents(textNode);
-      let anchor = TextPositionAnchor.fromRange(root, range);
-      let {start, end} = anchor;
-      let text = root.textContent.substr(start, end - start);
-      assert.instanceOf(anchor, TextPositionAnchor);
-      assert.equal(text, 'commodo vitae');
-    });
+      let root = fixture.el
+      let range = document.createRange()
+      let codeNode = root.querySelector('code')
+      let textNode = codeNode.childNodes[0]
+      range.selectNodeContents(textNode)
+      let anchor = TextPositionAnchor.fromRange(root, range)
+      let {start, end} = anchor
+      let text = root.textContent.substr(start, end - start)
+      assert.instanceOf(anchor, TextPositionAnchor)
+      assert.equal(text, 'commodo vitae')
+    })
 
     it('can describe part of a single text node', () => {
-      let root = fixture.el;
-      let range = document.createRange();
-      let codeNode = root.querySelector('code');
-      let textNode = codeNode.childNodes[0];
-      range.setStart(textNode, 5);
-      range.setEnd(textNode, 12);
-      let anchor = TextPositionAnchor.fromRange(root, range);
-      let {start, end} = anchor;
-      let text = root.textContent.substr(start, end - start);
-      assert.instanceOf(anchor, TextPositionAnchor);
-      assert.equal(text, 'do vita');
-    });
+      let root = fixture.el
+      let range = document.createRange()
+      let codeNode = root.querySelector('code')
+      let textNode = codeNode.childNodes[0]
+      range.setStart(textNode, 5)
+      range.setEnd(textNode, 12)
+      let anchor = TextPositionAnchor.fromRange(root, range)
+      let {start, end} = anchor
+      let text = root.textContent.substr(start, end - start)
+      assert.instanceOf(anchor, TextPositionAnchor)
+      assert.equal(text, 'do vita')
+    })
 
     it('can describe a range from one text node to another', () => {
-      let root = fixture.el;
-      let range = document.createRange();
-      let emNode = root.querySelector('em');
-      let emTextNode = emNode.childNodes[0];
-      let codeNode = root.querySelector('code');
-      let codeTextNode = codeNode.childNodes[0];
-      range.setStart(emTextNode, 7);
-      range.setEnd(codeTextNode, 7);
-      let anchor = TextPositionAnchor.fromRange(root, range);
-      let {start, end} = anchor;
+      let root = fixture.el
+      let range = document.createRange()
+      let emNode = root.querySelector('em')
+      let emTextNode = emNode.childNodes[0]
+      let codeNode = root.querySelector('code')
+      let codeTextNode = codeNode.childNodes[0]
+      range.setStart(emTextNode, 7)
+      range.setEnd(codeTextNode, 7)
+      let anchor = TextPositionAnchor.fromRange(root, range)
+      let {start, end} = anchor
       let text = root.textContent.substr(start, end - start);
       let expected = [
         'ultricies mi vitae est.',
