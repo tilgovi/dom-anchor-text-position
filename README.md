@@ -12,7 +12,7 @@ position selector as defined by the Web Annotation Data Model.
 For more information on `Range` see
 [the documentation](https://developer.mozilla.org/en-US/docs/Web/API/Range).
 
-For more information on the fragment selector see
+For more information on the text position selector see
 [the specification](http://www.w3.org/TR/annotation-model/#text-position-selector).
 
 Installation
