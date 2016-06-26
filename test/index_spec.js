@@ -184,6 +184,11 @@ describe('textPosition', () => {
       assert.equal(text, expected);
     });
 
+    it('defaults to a collapsed range', () => {
+      let root = fixture.el;
+      let range = toRange(root);
+      let text = range.toString();
+      assert.equal(text, '');
     });
   });
 });
