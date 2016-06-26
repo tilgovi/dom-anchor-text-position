@@ -18,51 +18,32 @@ For more information on the text position selector see
 Installation
 ============
 
-There are a few different ways to include the library.
-
-With a CommonJS bundler, to `require('dom-anchor-text-position')`:
+To `require('dom-anchor-text-position')`:
 
     npm install dom-anchor-text-position
-
-With a script tag, include one of the scripts from the `dist` directory.
-For this to work, you will also need to include the compatibility library
-[node-iterator-shim](https://github.com/tilgovi/node-iterator-shim).
-
-With AMD loaders, these scripts should also work.
 
 Usage
 =====
 
 ## API Documentation
 
-The module exposes a single constructor function, `TextPositionAnchor`.
+The module exposes only two functions.
 
 ### `new TextPositionAnchor(root, start, end)`
 
 This constructor creates a new `TextPositionAnchor`. The arguments describe
 textual offsets within the root `Element`. All arguments are required.
 
-### `TextPositionAnchor.fromRange(root, range)`
+### `fromRange(root, range)`
 
 Provided with an existing `Range` instance this will return a
-`TextPositionAnchor` that stores the offsets of the beginning and end of the
+`TextPositionSelector` that stores the offsets of the beginning and end of the
 text selected by the range as measured from the beginning of the `root`
 `Element`.
 
-### `TextPositionAnchor.fromSelector(root, selector)`
-
-Provided with an `Object` containing `start` and `end` keys this will return
-a `TextPositionAnchor` that corresponds to these offsets within the `root`
-`Element`.
-
-### `TextPositionAnchor.prototype.toRange()`
+### `toRange(root, selector = {start, end})`
 
 This method returns a `Range` object that selects the text corresponding to
-the substring of the text content of the anchor root over the interval
-[start, end).
-
-### `TextPositionAnchor.prototype.toSelector()`
-
-This method returns an `Object` that has keys `type`, `start`, and `end` where
-`type` is `"TextPositionSelector"` and the `start` and `end` keys have values
-corresponding to the stored `start` and `end` offsets of the anchor.
+the substring of the text content of the root `Element` over the interval
+`[start, end)`. If the end is not provided, returns a collapsed range. If the
+start is not provided, the default is `0`.
