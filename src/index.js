@@ -50,7 +50,6 @@ export function fromRange(root, range) {
   let end = start + seek(iter, endNode)
 
   return {
-    type: 'TextPositionSelector',
     start: start + startOffset,
     end: end + endOffset,
   }
