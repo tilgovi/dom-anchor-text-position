@@ -31,14 +31,14 @@ The module exposes only two functions.
 
 ### `fromRange(root, range)`
 
-Provided with an existing `Range` instance this will return a
-`TextPositionSelector` that stores the offsets of the beginning and end of the
-text selected by the range as measured from the beginning of the `root`
-`Element`.
+Provided with an existing `Range` instance this will return an object that
+stores the offsets of the beginning and end of the text selected by the range as
+measured from the beginning of the `root` `Node`.
 
 ### `toRange(root, selector = {start, end})`
 
-This method returns a `Range` object that selects the text corresponding to
-the substring of the text content of the root `Element` over the interval
-`[start, end)`. If the end is not provided, returns a collapsed range. If the
-start is not provided, the default is `0`.
+This method returns a `Range` object that covers the interval `[start, end)` of
+the text content of the `root` `Node`.
+
+If the end is not provided, returns a collapsed range. If the start is not
+provided, the default is `0`.
