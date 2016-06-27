@@ -13,45 +13,21 @@ export function fromRange(root, range) {
     throw new Error('missing required parameter "range"')
   }
 
+  let document = root.ownerDocument
+  let prefix = document.createRange()
+
   let startNode = range.startContainer
   let startOffset = range.startOffset
 
-  // Drill down to a text node if the range starts at the container boundary.
-  if (startNode.nodeType !== TEXT_NODE) {
-    if (startOffset === startNode.childNodes.length) {
-      startNode = startNode.childNodes[startOffset - 1]
-      startNode = getFirstTextNode(startNode)
-      startOffset = startNode.textContent.length
-    } else {
-      startNode = startNode.childNodes[startOffset]
-      startNode = getFirstTextNode(startNode)
-      startOffset = 0
-    }
-  }
+  prefix.setStart(root, 0)
+  prefix.setEnd(startNode, startOffset)
 
-  let endNode = range.endContainer
-  let endOffset = range.endOffset
-
-  // Drill down to a text node if the range ends at the container boundary.
-  if (endNode.nodeType !== TEXT_NODE) {
-    if (endOffset === endNode.childNodes.length) {
-      endNode = endNode.childNodes[endOffset - 1]
-      endNode = getFirstTextNode(endNode)
-      endOffset = endNode.textContent.length
-    } else {
-      endNode = endNode.childNodes[endOffset]
-      endNode = getFirstTextNode(endNode)
-      endOffset = 0
-    }
-  }
-
-  let iter = createNodeIterator(root, SHOW_TEXT)
-  let start = seek(iter, startNode)
-  let end = start + seek(iter, endNode)
+  let start = prefix.toString().length
+  let end = start + range.toString().length
 
   return {
-    start: start + startOffset,
-    end: end + endOffset,
+    start: start,
+    end: end,
   }
 }
 
@@ -88,10 +64,4 @@ export function toRange(root, selector = {}) {
   }
 
   return range
-}
-
-
-function getFirstTextNode(node) {
-  let iter = createNodeIterator(node, SHOW_TEXT)
-  return iter.nextNode()
 }

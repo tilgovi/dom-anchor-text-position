@@ -131,21 +131,6 @@ describe('textPosition', () => {
       ].join('')
       assert.equal(text, expected)
     })
-
-    it('can describe a range that starts at the end of the container', () => {
-      let root = fixture.el
-      let range = document.createRange()
-      let node = root.querySelector('code')
-      range.setStart(node, 1)
-      let siblingList = Array.prototype.slice.call(node.parentNode.childNodes)
-      let startContainerIndex = siblingList.indexOf(node)
-      let nextSibling = siblingList[startContainerIndex + 1]
-      range.setEnd(nextSibling, 8)
-      let anchor = fromRange(root, range)
-      let {start, end} = anchor
-      let text = root.textContent.substr(start, end - start)
-      assert.equal(text, ', ornare')
-    })
   })
 
   describe('toRange', () => {
