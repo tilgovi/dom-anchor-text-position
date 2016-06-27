@@ -1,9 +1,7 @@
-var istanbul = require('browserify-babel-istanbul')
-
 module.exports = function(config) {
   config.set({
     browsers: ['PhantomJS'],
-    browserify: {debug: true, transform: [istanbul, 'babelify']},
+    browserify: {debug: true, transform: ['babelify']},
     frameworks: ['browserify', 'chai', 'fixture', 'mocha'],
     files: [
       'test/*.js',

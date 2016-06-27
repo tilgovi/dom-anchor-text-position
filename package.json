@@ -4,7 +4,7 @@
   "description": "Convert between DOM Range instances and text positions.",
   "main": "index.js",
   "scripts": {
-    "test": "eslint src && karma start --single-run",
+    "test": "eslint src && BABEL_ENV=test karma start --single-run",
     "prepublish": "babel -d lib src"
   },
   "repository": {
@@ -31,10 +31,10 @@
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-eslint": "^6.1.0",
+    "babel-plugin-istanbul": "^1.0.0",
     "babel-preset-es2015": "^6.9.0",
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
-    "browserify-babel-istanbul": "^0.4.0",
     "chai": "^3.5.0",
     "codecov.io": "^0.1.6",
     "eslint": "^2.13.1",
@@ -52,6 +52,12 @@
     "watchify": "^3.7.0"
   },
   "babel": {
+    "env": {
+      "test": {
+        "plugins": ["istanbul"],
+        "presets": ["es2015"]
+      }
+    },
     "presets": [
       "es2015"
     ],
