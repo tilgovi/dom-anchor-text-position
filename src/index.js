@@ -2,7 +2,6 @@ import createNodeIterator from 'dom-node-iterator'
 import seek from 'dom-seek'
 
 const SHOW_TEXT = 4
-const TEXT_NODE = 3
 
 
 export function fromRange(root, range) {
