@@ -18,7 +18,7 @@ module.exports = function(config) {
       reporters: [
         {type: 'html', subdir: '.'},
         {type: 'json', subdir: '.'},
-        {type: 'lcov', subdir: '.'},
+        {type: 'lcovonly', subdir: '.'},
         {type: 'text', subdir: '.'}
       ]
     }
