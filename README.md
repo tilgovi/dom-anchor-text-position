@@ -29,11 +29,6 @@ Usage
 
 The module exposes only two functions.
 
-### `new TextPositionAnchor(root, start, end)`
-
-This constructor creates a new `TextPositionAnchor`. The arguments describe
-textual offsets within the root `Element`. All arguments are required.
-
 ### `fromRange(root, range)`
 
 Provided with an existing `Range` instance this will return a
