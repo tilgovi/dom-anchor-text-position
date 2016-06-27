@@ -185,10 +185,7 @@ describe('textPosition', () => {
     })
 
     it('defaults to a collapsed range', () => {
-      let root = fixture.el
-      let range = toRange(root)
-      let text = range.toString()
-      assert.equal(text, '')
+      let range = toRange(fixture.el)
       assert.isTrue(range.collapsed)
     })
   })
