@@ -1,8 +1,9 @@
 import createNodeIterator from 'dom-node-iterator'
 import seek from 'dom-seek'
 
-const SHOW_TEXT = 4
+import rangeToString from './range-to-string'
 
+const SHOW_TEXT = 4
 
 export function fromRange(root, range) {
   if (root === undefined) {
@@ -21,8 +22,8 @@ export function fromRange(root, range) {
   prefix.setStart(root, 0)
   prefix.setEnd(startNode, startOffset)
 
-  let start = prefix.toString().length
-  let end = start + range.toString().length
+  let start = rangeToString(prefix).length
+  let end = start + rangeToString(range).length
 
   return {
     start: start,
