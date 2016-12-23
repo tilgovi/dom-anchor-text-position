@@ -6,17 +6,17 @@
 function nextNode(node, skipChildren) {
   if (!skipChildren && node.firstChild) {
     return node.firstChild
-  } else if (node.nextSibling) {
-    return node.nextSibling
   }
-  while (node.parentNode) {
-    node = node.parentNode
+
+  do {
     if (node.nextSibling) {
       return node.nextSibling
     }
-  }
+    node = node.parentNode
+  } while (node)
+
   /* istanbul ignore next */
-  return null
+  return node
 }
 
 function firstNode(range) {
