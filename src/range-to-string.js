@@ -22,7 +22,7 @@ function nextNode(node, skipChildren) {
 function firstNode(range) {
   if (range.startContainer.nodeType === Node.ELEMENT_NODE) {
     const node = range.startContainer.childNodes[range.startOffset]
-    return node || range.startContainer
+    return node || nextNode(range.startContainer, true /* skip children */)
   }
   return range.startContainer
 }

@@ -154,6 +154,28 @@ describe('textPosition', () => {
       let text = root.textContent.substr(start, end - start)
       assert.equal(text, 'Ut felis.')
     });
+
+    it('can describe a range beginning at the end of a non-empty element', () => {
+      let root = fixture.el
+      let range = document.createRange()
+      let strongEl = root.querySelector('strong')
+      range.setStart(strongEl, 1)
+      range.setEnd(strongEl.nextSibling, 9)
+      let {start, end} = fromRange(root, range)
+      let text = root.textContent.substr(start, end - start)
+      assert.equal(text, ' senectus')
+    });
+
+    it('can describe a collapsed range', () => {
+      let root = fixture.el
+      let range = document.createRange()
+      let strongEl = root.querySelector('strong')
+      range.setStart(strongEl.firstChild, 10)
+      range.setEnd(strongEl.firstChild, 5)
+      let {start, end} = fromRange(root, range)
+      let text = root.textContent.substr(start, end - start)
+      assert.equal(text, '')
+    });
   })
 
   describe('toRange', () => {
