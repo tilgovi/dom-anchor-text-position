@@ -1,5 +1,4 @@
 import createNodeIterator from 'dom-node-iterator'
-import seek from 'dom-seek'
 
 import rangeToString from './range-to-string'
 
@@ -37,31 +36,49 @@ export function toRange(root, selector = {}) {
     throw new Error('missing required parameter "root"')
   }
 
-  let document = root.ownerDocument
-  let range = document.createRange()
-  let iter = createNodeIterator(root, SHOW_TEXT)
-
   let start = selector.start || 0
   let end = selector.end || start
-  let count = seek(iter, start)
-  let remainder = start - count
 
-  if (iter.pointerBeforeReferenceNode) {
-    range.setStart(iter.referenceNode, remainder)
-  } else {
-    range.setStart(iter.nextNode(), remainder)
-    iter.previousNode()
+  // Total character length of text nodes visited so far.
+  let nodeTextOffset = 0
+
+  // Node and character offset where the start position of the selector occurs.
+  let startContainer = null
+  let startOffset = 0
+
+  // Node and character offset where the end position of the selector occurs.
+  let endContainer = null
+  let endOffset = 0
+
+  // Iterate over text nodes and find where the start and end positions occur.
+  let iter = createNodeIterator(root, SHOW_TEXT)
+  while (iter.nextNode()) {
+    let nodeTextLength = iter.referenceNode.nodeValue.length
+
+    if (startContainer === null &&
+        start >= nodeTextOffset && start <= nodeTextOffset + nodeTextLength) {
+      startContainer = iter.referenceNode
+      startOffset = start - nodeTextOffset
+    }
+    if (endContainer === null &&
+        end >= nodeTextOffset && end <= nodeTextOffset + nodeTextLength) {
+      endContainer = iter.referenceNode
+      endOffset = end - nodeTextOffset
+    }
+
+    nodeTextOffset += nodeTextLength
   }
 
-  let length = (end - start) + remainder
-  count = seek(iter, length)
-  remainder = length - count
-
-  if (iter.pointerBeforeReferenceNode) {
-    range.setEnd(iter.referenceNode, remainder)
-  } else {
-    range.setEnd(iter.nextNode(), remainder)
+  if (!startContainer) {
+    throw new Error('Start offset of position selector is out of range')
   }
+  if (!endContainer) {
+    throw new Error('End offset of position selector is out of range')
+  }
+
+  let range = root.ownerDocument.createRange()
+  range.setStart(startContainer, startOffset)
+  range.setEnd(endContainer, endOffset)
 
   return range
 }

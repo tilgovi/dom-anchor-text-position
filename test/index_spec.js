@@ -218,5 +218,41 @@ describe('textPosition', () => {
       let range = toRange(fixture.el)
       assert.isTrue(range.collapsed)
     })
+
+    it('returns a range selecting the last text of the root element', () => {
+      let root = fixture.el
+      let expected = 'erat.'
+      let end = root.textContent.length
+      let start = end - 5
+      let range = toRange(root, {start, end})
+      let text = range.toString()
+      assert.equal(text, expected)
+    })
+
+    it('returns an empty range selecting the end of the root element', () => {
+      let root = fixture.el
+      let end = root.textContent.length
+      let range = toRange(root, {start: end, end})
+      let text = range.toString()
+      assert.equal(text, '')
+    })
+
+    it('throws an error if the start offset is out of range', () => {
+      let root = fixture.el
+      assert.throws(() => {
+        let start = 10000
+        let end = start + 1
+        toRange(root, {start, end})
+      }, 'Start offset of position selector is out of range')
+    })
+
+    it('throws an error if the end offset is out of range', () => {
+      let root = fixture.el
+      assert.throws(() => {
+        let start = 0
+        let end = 10000
+        toRange(root, {start, end})
+      }, 'End offset of position selector is out of range')
+    })
   })
 })

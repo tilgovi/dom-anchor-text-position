@@ -42,3 +42,6 @@ the text content of the `root` `Node`.
 
 If the end is not provided, returns a collapsed range. If the start is not
 provided, the default is `0`.
+
+If the `start` or `end` offsets are outside the range of valid character offsets
+within the text content of the `root` node, an exception is thrown.
