@@ -254,5 +254,19 @@ describe('textPosition', () => {
         toRange(root, {start, end})
       }, 'End offset of position selector is out of range')
     })
+
+    it('handles an empty root element', () => {
+      let root = document.createElement('div');
+      assert.throws(() => {
+        toRange(root, {start:0, end: 0})
+      }, 'Start offset of position selector is out of range');
+    })
+
+    it('handles a root element with an empty text node', () => {
+      let root = document.createElement('div');
+      root.appendChild(document.createTextNode())
+      let range = toRange(root, {start:0, end: 0})
+      assert.equal(range.toString(), '')
+    })
   })
 })
