@@ -52,7 +52,7 @@ export function toRange(root, selector = {}) {
 
   // Iterate over text nodes and find where the start and end positions occur.
   let iter = createNodeIterator(root, SHOW_TEXT)
-  while (iter.nextNode()) {
+  while (iter.nextNode() && (startContainer === null || endContainer === null)) {
     let nodeTextLength = iter.referenceNode.nodeValue.length
 
     if (startContainer === null &&
