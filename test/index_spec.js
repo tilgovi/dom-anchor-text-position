@@ -219,6 +219,16 @@ describe('textPosition', () => {
       assert.isTrue(range.collapsed)
     })
 
+    it('returns a range selecting the first text of the root element', () => {
+      let root = fixture.el
+      let expected = 'Pellentesque'
+      let start = 0
+      let end = expected.length
+      let range = toRange(root, {start, end})
+      let text = range.toString()
+      assert.equal(text, expected)
+    })
+
     it('returns a range selecting the last text of the root element', () => {
       let root = fixture.el
       let expected = 'erat.'
