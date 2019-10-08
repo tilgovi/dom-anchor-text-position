@@ -253,7 +253,7 @@ describe('textPosition', () => {
         let start = 10000
         let end = start + 1
         toRange(root, {start, end})
-      }, 'Start offset of position selector is out of range')
+      }, RangeError)
     })
 
     it('throws an error if the end offset is out of range', () => {
@@ -262,7 +262,7 @@ describe('textPosition', () => {
         let start = 0
         let end = 10000
         toRange(root, {start, end})
-      }, 'End offset of position selector is out of range')
+      }, RangeError)
     })
 
     it('handles an empty root element', () => {
@@ -272,7 +272,7 @@ describe('textPosition', () => {
       // always has a text node as the `startContainer` and `endContainer`.
       assert.throws(() => {
         toRange(root, {start:0, end: 0})
-      }, 'Start offset of position selector is out of range');
+      }, RangeError);
     })
 
     it('handles a root element with an empty text node', () => {

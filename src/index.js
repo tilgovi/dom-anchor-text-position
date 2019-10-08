@@ -1,4 +1,5 @@
 import createNodeIterator from 'dom-node-iterator'
+import seek from 'dom-seek'
 
 import rangeToString from './range-to-string'
 
@@ -36,49 +37,23 @@ export function toRange(root, selector = {}) {
     throw new Error('missing required parameter "root"')
   }
 
-  let start = selector.start || 0
-  let end = selector.end || start
+  const document = root.ownerDocument
+  const range = document.createRange()
+  const iter = createNodeIterator(root, SHOW_TEXT)
 
-  // Total character length of text nodes visited so far.
-  let nodeTextOffset = 0
+  const start = selector.start || 0
+  const end = selector.end || start
 
-  // Node and character offset where the start position of the selector occurs.
-  let startContainer = null
-  let startOffset = 0
+  const startOffset = start - seek(iter, start);
+  const startNode = iter.referenceNode;
 
-  // Node and character offset where the end position of the selector occurs.
-  let endContainer = null
-  let endOffset = 0
+  const remainder = end - start + startOffset;
 
-  // Iterate over text nodes and find where the start and end positions occur.
-  let iter = createNodeIterator(root, SHOW_TEXT)
-  while (iter.nextNode() && (startContainer === null || endContainer === null)) {
-    let nodeTextLength = iter.referenceNode.nodeValue.length
+  const endOffset = remainder - seek(iter, remainder);
+  const endNode = iter.referenceNode;
 
-    if (startContainer === null &&
-        start >= nodeTextOffset && start <= nodeTextOffset + nodeTextLength) {
-      startContainer = iter.referenceNode
-      startOffset = start - nodeTextOffset
-    }
-    if (endContainer === null &&
-        end >= nodeTextOffset && end <= nodeTextOffset + nodeTextLength) {
-      endContainer = iter.referenceNode
-      endOffset = end - nodeTextOffset
-    }
-
-    nodeTextOffset += nodeTextLength
-  }
-
-  if (!startContainer) {
-    throw new Error('Start offset of position selector is out of range')
-  }
-  if (!endContainer) {
-    throw new Error('End offset of position selector is out of range')
-  }
-
-  let range = root.ownerDocument.createRange()
-  range.setStart(startContainer, startOffset)
-  range.setEnd(endContainer, endOffset)
+  range.setStart(startNode, startOffset)
+  range.setEnd(endNode, endOffset)
 
   return range
 }
