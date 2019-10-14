@@ -278,5 +278,19 @@ describe('textPosition', () => {
       let range = toRange(root, {start:0, end: 0})
       assert.equal(range.toString(), '')
     })
+
+    it('handles an `end` offset less than the `start` offset', () => {
+      let root = fixture.el
+      let expected = 'do vit'
+      let start = root.textContent.indexOf(expected)
+      let end = start + expected.length
+      let range = toRange(root, {start: end, end: start})
+      let text = range.toString()
+
+      // This case could reasonably throw or simply return a collapsed range.
+      // It returns a collapsed range as that seems like it would be more
+      // convenient for the caller.
+      assert.equal(text, '')
+    })
   })
 })
