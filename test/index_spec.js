@@ -267,6 +267,9 @@ describe('textPosition', () => {
 
     it('handles an empty root element', () => {
       let root = document.createElement('div');
+
+      // This case throws to preserve the invariant that the returned `Range`
+      // always has a text node as the `startContainer` and `endContainer`.
       assert.throws(() => {
         toRange(root, {start:0, end: 0})
       }, 'Start offset of position selector is out of range');
