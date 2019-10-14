@@ -274,7 +274,7 @@ describe('textPosition', () => {
 
     it('handles a root element with an empty text node', () => {
       let root = document.createElement('div');
-      root.appendChild(document.createTextNode())
+      root.appendChild(document.createTextNode(''))
       let range = toRange(root, {start:0, end: 0})
       assert.equal(range.toString(), '')
     })
