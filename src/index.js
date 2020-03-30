@@ -37,31 +37,23 @@ export function toRange(root, selector = {}) {
     throw new Error('missing required parameter "root"')
   }
 
-  let document = root.ownerDocument
-  let range = document.createRange()
-  let iter = createNodeIterator(root, SHOW_TEXT)
+  const document = root.ownerDocument
+  const range = document.createRange()
+  const iter = createNodeIterator(root, SHOW_TEXT)
 
-  let start = selector.start || 0
-  let end = selector.end || start
-  let count = seek(iter, start)
-  let remainder = start - count
+  const start = selector.start || 0
+  const end = selector.end || start
 
-  if (iter.pointerBeforeReferenceNode) {
-    range.setStart(iter.referenceNode, remainder)
-  } else {
-    range.setStart(iter.nextNode(), remainder)
-    iter.previousNode()
-  }
+  const startOffset = start - seek(iter, start);
+  const startNode = iter.referenceNode;
 
-  let length = (end - start) + remainder
-  count = seek(iter, length)
-  remainder = length - count
+  const remainder = end - start + startOffset;
 
-  if (iter.pointerBeforeReferenceNode) {
-    range.setEnd(iter.referenceNode, remainder)
-  } else {
-    range.setEnd(iter.nextNode(), remainder)
-  }
+  const endOffset = remainder - seek(iter, remainder);
+  const endNode = iter.referenceNode;
+
+  range.setStart(startNode, startOffset)
+  range.setEnd(endNode, endOffset)
 
   return range
 }

@@ -26,7 +26,7 @@
   "homepage": "https://github.com/tilgovi/dom-anchor-text-position",
   "dependencies": {
     "dom-node-iterator": "^3.5.0",
-    "dom-seek": "^4.0.1"
+    "dom-seek": "^5.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

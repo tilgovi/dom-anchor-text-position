@@ -218,5 +218,82 @@ describe('textPosition', () => {
       let range = toRange(fixture.el)
       assert.isTrue(range.collapsed)
     })
+
+    it('returns a range selecting the first text of the root element', () => {
+      let root = fixture.el
+      let expected = 'Pellentesque'
+      let start = 0
+      let end = expected.length
+      let range = toRange(root, {start, end})
+      let text = range.toString()
+      assert.equal(text, expected)
+    })
+
+    it('returns a range selecting the last text of the root element', () => {
+      let root = fixture.el
+      let expected = 'erat.'
+      let end = root.textContent.length
+      let start = end - 5
+      let range = toRange(root, {start, end})
+      let text = range.toString()
+      assert.equal(text, expected)
+    })
+
+    it('returns an empty range selecting the end of the root element', () => {
+      let root = fixture.el
+      let end = root.textContent.length
+      let range = toRange(root, {start: end, end})
+      let text = range.toString()
+      assert.equal(text, '')
+    })
+
+    it('throws an error if the start offset is out of range', () => {
+      let root = fixture.el
+      assert.throws(() => {
+        let start = 10000
+        let end = start + 1
+        toRange(root, {start, end})
+      }, RangeError)
+    })
+
+    it('throws an error if the end offset is out of range', () => {
+      let root = fixture.el
+      assert.throws(() => {
+        let start = 0
+        let end = 10000
+        toRange(root, {start, end})
+      }, RangeError)
+    })
+
+    it('handles an empty root element', () => {
+      let root = document.createElement('div');
+
+      // This case throws to preserve the invariant that the returned `Range`
+      // always has a text node as the `startContainer` and `endContainer`.
+      assert.throws(() => {
+        toRange(root, {start:0, end: 0})
+      }, RangeError);
+    })
+
+    it('handles a root element with an empty text node', () => {
+      let root = document.createElement('div');
+      root.appendChild(document.createTextNode(''))
+      let range = toRange(root, {start:0, end: 0})
+      assert.equal(range.toString(), '')
+    })
+
+    it('handles an `end` offset less than the `start` offset', () => {
+      let root = fixture.el
+      let expected = 'do vit'
+      let start = root.textContent.indexOf(expected)
+      let end = start + expected.length
+      let range = toRange(root, {start: end, end: start})
+      let text = range.toString()
+
+      // This case could reasonably throw or simply return a collapsed range.
+      // It returns a collapsed range as that seems like it would be more
+      // convenient for the caller.
+      assert.equal(text, '')
+    })
   })
 })
