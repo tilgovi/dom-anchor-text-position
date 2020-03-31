@@ -1,4 +1,3 @@
-import createNodeIterator from 'dom-node-iterator'
 import seek from 'dom-seek'
 
 import rangeToString from './range-to-string'
@@ -39,7 +38,7 @@ export function toRange(root, selector = {}) {
 
   const document = root.ownerDocument
   const range = document.createRange()
-  const iter = createNodeIterator(root, SHOW_TEXT)
+  const iter = document.createNodeIterator(root, SHOW_TEXT)
 
   const start = selector.start || 0
   const end = selector.end || start
