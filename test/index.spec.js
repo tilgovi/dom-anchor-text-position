@@ -1,9 +1,20 @@
+import { assert } from 'chai'
+import fs from 'fs'
+import path from 'path'
 import {fromRange, toRange} from '../src'
 
+let fixturePath = path.join(__dirname, 'fixtures', 'test.html')
+let fixtureBuf = fs.readFileSync(fixturePath)
+let fixtureHTML = fixtureBuf.toString().trim()
+
+
 describe('textPosition', () => {
-  before(() => fixture.setBase('test/fixtures'))
-  beforeEach(() => fixture.load('test.html'))
-  afterEach(() => fixture.cleanup())
+  let fixture = null
+
+  before(() => {
+    fixture = { el: document.createElement('div') }
+    fixture.el.innerHTML = fixtureHTML
+  });
 
   describe('fromRange', () => {
     it('requires a root argument', () => {
@@ -137,22 +148,22 @@ describe('textPosition', () => {
       let range = document.createRange()
       let hrEl = root.querySelector('hr')
       range.setStart(hrEl, 0)
-      range.setEnd(hrEl.nextSibling.firstChild, 16)
+      range.setEnd(hrEl.nextSibling.nextSibling.firstChild, 16)
       let {start, end} = fromRange(root, range)
       let text = root.textContent.substr(start, end - start)
-      assert.equal(text, 'Praesent dapibus')
+      assert.equal(text, '\nPraesent dapibus')
     });
 
     it('can describe a range ending at an empty element', () => {
       let root = fixture.el
       let range = document.createRange()
       let hrEl = root.querySelector('hr')
-      let prevText = hrEl.previousSibling.lastChild
+      let prevText = hrEl.previousSibling.previousSibling.lastChild
       range.setStart(prevText, prevText.textContent.length - 9)
       range.setEnd(hrEl, 0)
       let {start, end} = fromRange(root, range)
       let text = root.textContent.substr(start, end - start)
-      assert.equal(text, 'Ut felis.')
+      assert.equal(text, 'Ut felis.\n')
     });
 
     it('can describe a range beginning at the end of a non-empty element', () => {

@@ -1,5 +1,3 @@
-/* global Node */
-
 /**
  * Return the next node after `node` in a tree order traversal of the document.
  */
